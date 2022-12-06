@@ -1,12 +1,25 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { increament, decreament, clear } from './slices/counterSlice';
-
+import { increament, decreament, clear,random } from './slices/counterSlice';
+import { getUserData } from './slices/counterSlice';
 const App = () => {
   const dispatch = useDispatch()
-  const state = useSelector(state => state.count)
+  const countState = useSelector(state => state?.count)
+  const countNum = useSelector(state => state?.count?.number)
+  console.log("gg",countState)
 
-  console.log(state)
+
+  useEffect(() => {
+    dispatch(random(Math.ceil(Math.random() * 10)))
+  },[])
+
+  useEffect(() => {
+    console.log('count countState',countNum)
+    if(countNum >= 0) {
+      dispatch(getUserData(countNum))
+    }
+  },[countNum])
+
 
   const plus = () => {
     dispatch(increament())
@@ -18,12 +31,15 @@ const App = () => {
   const want = (num) => {
     dispatch(clear(num))
   }
+
   return (
     <div>
-      <h1>{state.count}</h1>
+      <h1>{countState.count}</h1>
       <button onClick={plus}>+</button>
       <button onClick={minus}>-</button>
       <button onClick={() => want(10)}>clear</button>
+
+
     </div>
   );
 };
