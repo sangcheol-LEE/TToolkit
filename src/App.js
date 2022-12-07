@@ -14,7 +14,6 @@ const App = () => {
   },[])
 
   useEffect(() => {
-    console.log('count countState',countNum)
     if(countNum >= 0) {
       dispatch(getUserData(countNum))
     }
@@ -32,14 +31,13 @@ const App = () => {
     dispatch(clear(num))
   }
 
+
   return (
     <div>
       <h1>{countState.count}</h1>
       <button onClick={plus}>+</button>
       <button onClick={minus}>-</button>
       <button onClick={() => want(10)}>clear</button>
-
-
     </div>
   );
 };
